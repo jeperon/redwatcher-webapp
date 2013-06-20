@@ -15,7 +15,7 @@ public class EyeServiceTest {
 	@Test
 	public void testTestSnmp() throws IOException {
 
-		boolean result = eyeService.testSnmp("twinhead.busyboxes.ch");
+		boolean result = eyeService.testSnmp("www.google.com");
 
 		assertTrue(result);
 	}
