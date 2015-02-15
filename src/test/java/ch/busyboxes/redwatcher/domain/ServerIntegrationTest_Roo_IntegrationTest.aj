@@ -6,7 +6,10 @@ package ch.busyboxes.redwatcher.domain;
 import ch.busyboxes.redwatcher.domain.ServerDataOnDemand;
 import ch.busyboxes.redwatcher.domain.ServerIntegrationTest;
 import ch.busyboxes.redwatcher.repository.ServerRepository;
+import java.util.Iterator;
 import java.util.List;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,7 +104,16 @@ privileged aspect ServerIntegrationTest_Roo_IntegrationTest {
         Server obj = dod.getNewTransientServer(Integer.MAX_VALUE);
         Assert.assertNotNull("Data on demand for 'Server' failed to provide a new transient entity", obj);
         Assert.assertNull("Expected 'Server' identifier to be null", obj.getId());
-        serverRepository.save(obj);
+        try {
+            serverRepository.save(obj);
+        } catch (final ConstraintViolationException e) {
+            final StringBuilder msg = new StringBuilder();
+            for (Iterator<ConstraintViolation<?>> iter = e.getConstraintViolations().iterator(); iter.hasNext();) {
+                final ConstraintViolation<?> cv = iter.next();
+                msg.append("[").append(cv.getRootBean().getClass().getName()).append(".").append(cv.getPropertyPath()).append(": ").append(cv.getMessage()).append(" (invalid value = ").append(cv.getInvalidValue()).append(")").append("]");
+            }
+            throw new IllegalStateException(msg.toString(), e);
+        }
         serverRepository.flush();
         Assert.assertNotNull("Expected 'Server' identifier to no longer be null", obj.getId());
     }
