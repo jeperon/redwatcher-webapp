@@ -50,7 +50,7 @@
         </repository>
         <repository>
             <id>SNMP4J Repo</id>
-            <url>https://server.oosnmp.net/dist/release</url>
+            <url>https://oosnmp.net/dist/release</url>
             <name>SNMP4J Repo</name>
         </repository>
     </repositories>
