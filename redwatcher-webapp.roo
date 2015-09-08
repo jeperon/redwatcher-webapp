@@ -1,3 +1,0 @@
-jpa setup --database MYSQL --provider ECLIPSELINK 
-repository jpa --entity ~.redwatcher.domain.Server --interface ~.redwatcher.repository.ServerRepository
-test integration --entity ~.redwatcher.domain.Server
