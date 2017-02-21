@@ -2,57 +2,44 @@ package ch.busyboxes.redwatcher.web;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.VerticalLayout;
 
 /**
- * Menu
- * 
- * @author jeperon
+ * Main menu
  */
 public class MenuLayout extends VerticalLayout {
 
-	public static final String DASHBOARD_FRAGMENT = "dashboard";
+    private static final long serialVersionUID = 1L;
 
-	public static final String SERVERS_FRAGMENT = "servers";
+    public static final String DASHBOARD_FRAGMENT = "dashboard";
 
-	private final Navigator navigator;
+    public static final String SERVERS_FRAGMENT = "servers";
 
-	public MenuLayout(Navigator navigator) {
-		super();
+    private final Navigator navigator;
 
-		this.navigator = navigator;
+    public MenuLayout(Navigator navigator) {
+        super();
 
-		setMargin(true);
-		setWidth("300px");
-		initComponents();
-	}
+        this.navigator = navigator;
 
-	private void initComponents() {
+        setMargin(true);
+        setWidth("300px");
+        initComponents();
+    }
 
-		Button dashboardButton = new Button("Go to dashboard");
+    private void initComponents() {
 
-		dashboardButton.addClickListener(new Button.ClickListener() {
+        Button dashboardButton = new Button("Go to dashboard");
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				navigator.navigateTo(DASHBOARD_FRAGMENT);
-			}
-		});
+        dashboardButton.addClickListener(event -> navigator.navigateTo(DASHBOARD_FRAGMENT));
 
-		addComponent(dashboardButton);
+        addComponent(dashboardButton);
 
-		Button serversButton = new Button("Go to server page");
+        Button serversButton = new Button("Go to server page");
 
-		serversButton.addClickListener(new Button.ClickListener() {
+        serversButton.addClickListener(event -> navigator.navigateTo(SERVERS_FRAGMENT));
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				navigator.navigateTo(SERVERS_FRAGMENT);
-			}
-		});
-
-		addComponent(serversButton);
-	}
+        addComponent(serversButton);
+    }
 
 }

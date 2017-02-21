@@ -7,23 +7,25 @@ import com.vaadin.ui.VerticalLayout;
 
 public class ServerView extends VerticalLayout implements View {
 
-	public ServerView() {
-		super();
-		setMargin(true);
-		setSizeFull();
-		initComponents();
-	}
+    private static final long serialVersionUID = 1L;
 
-	private void initComponents() {
-		Label dashboardLabel = new Label("This is the server view.");
+    public ServerView() {
+        super();
+        setMargin(true);
+        setSizeFull();
+        initComponents();
+    }
 
-		addComponent(dashboardLabel);
-	}
+    private void initComponents() {
+        Label dashboardLabel = new Label("This is the server view.");
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+        addComponent(dashboardLabel);
+    }
 
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

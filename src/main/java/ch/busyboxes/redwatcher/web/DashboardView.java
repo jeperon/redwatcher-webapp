@@ -7,28 +7,28 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * Dashboard
- * 
- * @author jeperon
  */
 public class DashboardView extends VerticalLayout implements View {
 
-	public DashboardView() {
-		super();
-		setMargin(true);
-		setSizeFull();
-		initComponents();
-	}
+    private static final long serialVersionUID = 1L;
 
-	private void initComponents() {
-		Label dashboardLabel = new Label("This is the dashboard.");
+    public DashboardView() {
+        super();
+        setMargin(true);
+        setSizeFull();
+        initComponents();
+    }
 
-		addComponent(dashboardLabel);
-	}
+    private void initComponents() {
+        Label dashboardLabel = new Label("This is the dashboard.");
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+        addComponent(dashboardLabel);
+    }
 
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+
+    }
 
 }
