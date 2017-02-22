@@ -11,14 +11,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.busyboxes.redwatcher.config.RedWatcherTestConfiguration;
 import ch.busyboxes.redwatcher.repository.ServerRepository;
 
+@SpringBootTest
+@ActiveProfiles("test")
 @Configurable
-@ContextConfiguration(locations = { "classpath:/META-INF/spring-test/testContext*.xml", "classpath:/META-INF/spring/applicationContext-*.xml" })
+@ContextConfiguration(classes = RedWatcherTestConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ServerIntegrationTest {
@@ -75,8 +80,9 @@ public class ServerIntegrationTest {
     public void testFindEntries() {
         Assert.assertNotNull("Data on demand for 'Server' failed to initialize correctly", dod.getRandomServer());
         long count = serverRepository.count();
-        if (count > 20)
+        if (count > 20) {
             count = 20;
+        }
         int firstResult = 0;
         int maxResults = (int) count;
         List<Server> result = serverRepository.findAll(new org.springframework.data.domain.PageRequest(firstResult / maxResults, maxResults)).getContent();
@@ -95,7 +101,7 @@ public class ServerIntegrationTest {
         boolean modified = dod.modifyServer(obj);
         Integer currentVersion = obj.getVersion();
         serverRepository.flush();
-        Assert.assertTrue("Version for 'Server' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion)
+        Assert.assertTrue("Version for 'Server' failed to increment on flush directive", currentVersion != null && obj.getVersion() > currentVersion
                 || !modified);
     }
 
@@ -133,6 +139,6 @@ public class ServerIntegrationTest {
         serverRepository.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
         Assert.assertTrue("Version for 'Server' failed to increment on merge and flush directive",
-                (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+                currentVersion != null && obj.getVersion() > currentVersion || !modified);
     }
 }
